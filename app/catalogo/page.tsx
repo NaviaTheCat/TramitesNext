@@ -5,6 +5,7 @@ import ButtonRag from '../components/ButtonRag'
 import CardTramite from '../components/CardTramite'
 import Header from '../components/Header'
 import Sidebar from '../components/Sidebar'
+import { listaTramitesDisponibles } from '../lib/tiposTramites/tiposTramites'
 
 export default function CatalogoPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -26,12 +27,14 @@ export default function CatalogoPage() {
       </div>
 
       <div className="md:ml-80 mt-8 mb-8 px-4 md:px-0 md:pr-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 auto-rows-max">
-        <CardTramite />
-        <CardTramite />
-        <CardTramite />
-        <CardTramite />
-        <CardTramite />
-        <CardTramite />
+        {listaTramitesDisponibles.map((tramite) => {
+          return (
+            <CardTramite
+              key={tramite.identificadorTramite}
+              tramite={tramite}
+            />
+          )
+        })}
       </div>
       <ButtonRag />
     </div>
