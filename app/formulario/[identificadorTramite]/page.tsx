@@ -40,6 +40,7 @@ export default function FormularioPage({
   const [erroresRequisitos, setErroresRequisitos] = useState<{ [key: string]: string }>({});
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [subiendoArchivos, setSubiendoArchivos] = useState(false);
+  const [resultadoValidacion, setResultadoValidacion] = useState<respuestaAPI | null>(null);
   const [archivos, setArchivos] = useState<{ [key: string]: File | null }>(() => {
     const tramiteInicial = encontrarTramitePorIdentificador(slug)
     if (tramiteInicial && tramiteInicial.requisitosArchivos && tramiteInicial.requisitosArchivos.length > 0) {
@@ -59,6 +60,7 @@ export default function FormularioPage({
 
   const handleEnviar = async () => {
     // Validar que se hayan llenado todos los campos requeridos
+    /*
     if (!formData.nombreCompleto || !formData.matricula || !formData.carrera) {
       alert('Por favor, completa todos los campos requeridos.')
       return
@@ -79,11 +81,9 @@ export default function FormularioPage({
         setSubiendoArchivos(true)
         try {
           formDataParaEnviar.append('tramite_id', tramite.identificadorTramite);
-          Object.entries(archivos).forEach(([identificador, file]) => {
-            if (file) {
-              formDataParaEnviar.append(`file_${identificador}`, file)
-            }
-          });
+          const file = Object.values(archivos)[0];
+
+          formDataParaEnviar.append("files", file as File);
           const response = await fetch('http://127.0.0.1:8000/validate-documents', { // Cambiar por la API correcta una vez implementada.
             method: 'POST',
             body: formDataParaEnviar,
@@ -95,6 +95,7 @@ export default function FormularioPage({
             return
           }
           const result = await response.json();
+          setResultadoValidacion(result);
           if (result) {
             const validationSummary: respuestaAPI = result
             console.log('Resumen de validación:', validationSummary)
@@ -105,7 +106,9 @@ export default function FormularioPage({
         }
       }
     }
-
+*/
+    console.log('Funcionaliodad removida, no cuenta parte del RAG y es un agente.');
+    alert('Funcionalidad removida, no cuenta parte del RAG y es un agente.')
 
   }
 
@@ -221,18 +224,49 @@ export default function FormularioPage({
               >
                 {subiendoArchivos ? 'Enviando...' : 'Enviar Solicitud'}
               </button>
-              {erroresRequisitos && Object.keys(erroresRequisitos).length > 0 && (
-                <div className="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg">
-                  <p className="font-medium mb-2">Errores en los requisitos:</p>
-                  <ul className="list-disc list-inside text-sm md:text-base">
-                    {Object.entries(erroresRequisitos).map(([identificador, error]) => (
-                      <li key={identificador}>{error}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+
             </div>
           </form>
+          <div>
+            {resultadoValidacion && (
+              <div className="mt-4 p-4 border rounded-lg bg-slate-50">
+                <h2 className="font-semibold mb-2">Resultado:</h2>
+
+                {resultadoValidacion.results.map((res, index) => (
+                  <div key={index} className="mb-3">
+                    <p>
+                      Estado:{" "}
+                      <span className={res.is_valid ? "text-green-600" : "text-red-600"}>
+                        {res.is_valid ? "Válido" : "Inválido"}
+                      </span>
+                    </p>
+
+                    <p>Confianza: {(res.confidence * 100).toFixed(2)}%</p>
+
+                    <p>QR detectado: {res.qr_detected ? "Sí" : "No"}</p>
+
+                    {res.issues.length > 0 && (
+                      <ul className="text-red-500 text-sm mt-2">
+                        {res.issues.map((issue, i) => (
+                          <li key={i}>• {issue}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+            {erroresRequisitos && Object.keys(erroresRequisitos).length > 0 && (
+              <div className="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                <p className="font-medium mb-2">Errores en los requisitos:</p>
+                <ul className="list-disc list-inside text-sm md:text-base">
+                  {Object.entries(erroresRequisitos).map(([identificador, error]) => (
+                    <li key={identificador}>{error}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
         </div>
       </div>
       <ButtonRag />

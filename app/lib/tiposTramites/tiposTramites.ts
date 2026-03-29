@@ -31,5 +31,23 @@ export const listaTramitesDisponibles: tiposTramites[] = [
                 descripcionRequisito: 'INE'
             },
         ]
+    },
+    {
+        tituloTramite: 'Carta de no adeudo',
+        descripcionTramite: 'Documento que certifica que no tienes adeudos pendientes con la institución. Requiere que el estudiante presente su INE o documento de identidad vigente para verificar su identidad y estado académico.',
+        costoTramite: '200$',
+        identificadorTramite: 'carta-no-adeudo',
+        requisitosTexto: [
+            'CURP',
+        ],
+        requisitosArchivos: [
+            {
+                identificadorArchivo: 'curp',
+                nombreArchivo: 'CURP',
+                tituloRequisito: 'CURP',
+                descripcionRequisito: 'CURP'
+            },
+        ]
+
     }
 ]

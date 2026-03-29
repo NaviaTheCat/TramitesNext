@@ -22,7 +22,8 @@ export default function DashboardPage() {
           <div className="bg-[#00CEEE] text-center p-6 md:p-20 rounded-lg shadow-lg w-full lg:w-[50%]">
             <div className="text-white ">
               <FaUser className="mx-auto mb-2" size="2.5rem" />
-              <h1 className="text-2xl md:text-[30px] font-bold ">ARTURO DIAZ</h1>
+              <p className='text-sm'>Diseño del front-end realizado por: Beltran Cetina Ricardo (Snowy) - Funcionalidad desarrollada por: Roger Emanuel Santana Suaste</p>
+              <h1 className="text-2xl md:text-[30px] font-bold ">BELTRAN CETINA</h1>
               <p className="text-sm md:text-xl">INGENIERÍA EN DESARROLLO Y GESTIÓN DE SOFTWARE</p>
               <p className="text-sm md:text-xl">Matricula: 2289015</p>
             </div>
