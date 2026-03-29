@@ -35,7 +35,8 @@ function getRagEndpoints() {
             .filter(Boolean)
     }
 
-    return ['http://127.0.0.1:8000/ask', 'http://127.0.0.1:8000/chat']
+    //return ['http://127.0.0.1:8000/ask', 'http://127.0.0.1:8000/chat']
+    return ['https://rag-test-backend.onrender.com/ask', 'https://rag-test-backend.onrender.com/chat']
 }
 
 async function callRag(question: string): Promise<RagCallResult> {
