@@ -11,6 +11,7 @@ function ButtonRag() {
     <div className="fixed z-10 bottom-4 md:bottom-10 right-4 md:right-10">
       {!abierto && (
         <button
+        aria-label='Botón Para Abrir Ventana De Asistente'
           onClick={() => setAbierto(true)}
           className="bg-[#2CA2FD] shadow-lg text-white p-2 md:p-3 rounded-[90px] hover:bg-blue-500 transition-all cursor-pointer"
         >
@@ -19,8 +20,8 @@ function ButtonRag() {
       )}
 
       {abierto && (
-        <div className="fixed bottom-4 md:bottom-10 right-4 md:right-10 w-72 md:w-96 bg-white rounded-lg shadow-2xl border border-slate-200 overflow-hidden flex flex-col">
-          <div className="p-3 md:p-4 h-80 md:h-105 overflow-hidden">
+        <div className="fixed bottom-4 md:bottom-10 right-4 md:right-10 w-90 md:w-150 bg-white rounded-lg shadow-2xl border border-slate-200 overflow-hidden flex flex-col">
+          <div className="p-3 md:p-4 h-100 md:h-145 overflow-hidden">
             <Asistente onClose={() => setAbierto(false)} />
           </div>
         </div>

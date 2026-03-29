@@ -60,6 +60,7 @@ export default function FormularioPage({
 
   const handleEnviar = async () => {
     // Validar que se hayan llenado todos los campos requeridos
+    /*
     if (!formData.nombreCompleto || !formData.matricula || !formData.carrera) {
       alert('Por favor, completa todos los campos requeridos.')
       return
@@ -105,7 +106,9 @@ export default function FormularioPage({
         }
       }
     }
-
+*/
+    console.log('Funcionaliodad removida, no cuenta parte del RAG y es un agente.');
+    alert('Funcionalidad removida, no cuenta parte del RAG y es un agente.')
 
   }
 
